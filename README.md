@@ -47,16 +47,13 @@ These tutorials and documentation links helped guide the development of this pro
 ### 🧠 Tutorials & Videos
 
 - **Feature Extraction & Clustering Walkthrough**  
-  https://www.youtube.com/watch?v=iNlZ3IU5Ffw
+  https://www.youtube.com/watch?v=w8Qx40tHeEM
 
-- **Additional Clustering/Feature Extraction Concepts**  
+- **Clustering Concepts**  
   https://www.youtube.com/watch?v=-7j4n3FDGK4
 
 - **Plotting Images with Python/Matplotlib**  
   https://www.youtube.com/watch?v=1Bl-lDCD5Zg
-
-- **NumPy `where()` Function Tutorial**  
-  https://www.youtube.com/watch?v=w8Qx40tHeEM
 
 ### 📄 Official Documentation
 
@@ -66,8 +63,8 @@ These tutorials and documentation links helped guide the development of this pro
 - **MobileNetV2 (TensorFlow/Keras)**  
   https://www.tensorflow.org/api_docs/python/tf/keras/applications/MobileNetV2
 
-- **NumPy Documentation (`numpy.where`)**  
-  https://numpy.org/devdocs/reference/generated/numpy.where.html
+- **NumPy Documentation **  
+  [(https://numpy.org/devdocs/reference/module_structure.html]
 
 - **Matplotlib Intro (W3Schools)**  
   https://www.w3schools.com/python/matplotlib_intro.asp
