@@ -40,9 +40,11 @@ with the repository’s license.
 3. **Clustering**: The K-Means algorithm is applied to group emojis based on visual similarity. The project uses 50 clusters by default, but this can be adjusted.
 4. **Visualization**: Random emojis from each cluster are displayed in a grid, and the final figure is saved as results.png.
 
+
 ## 📚 References & Learning Resources
 
 These tutorials and documentation links helped guide the development of this project:
+
 
 ### 🧠 Tutorials & Videos
 
