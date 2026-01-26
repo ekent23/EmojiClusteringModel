@@ -40,6 +40,37 @@ with the repository’s license.
 3. **Clustering**: The K-Means algorithm is applied to group emojis based on visual similarity. The project uses 50 clusters by default, but this can be adjusted.
 4. **Visualization**: Random emojis from each cluster are displayed in a grid, and the final figure is saved as results.png.
 
+## 📚 References & Learning Resources
+
+These tutorials and documentation links helped guide the development of this project:
+
+### 🧠 Tutorials & Videos
+
+- **Feature Extraction & Clustering Walkthrough**  
+  https://www.youtube.com/watch?v=iNlZ3IU5Ffw
+
+- **Additional Clustering/Feature Extraction Concepts**  
+  https://www.youtube.com/watch?v=-7j4n3FDGK4
+
+- **Plotting Images with Python/Matplotlib**  
+  https://www.youtube.com/watch?v=1Bl-lDCD5Zg
+
+- **NumPy `where()` Function Tutorial**  
+  https://www.youtube.com/watch?v=w8Qx40tHeEM
+
+### 📄 Official Documentation
+
+- **K-Means Clustering (scikit-learn)**  
+  https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html#sklearn.cluster.KMeans.fit_predict
+
+- **MobileNetV2 (TensorFlow/Keras)**  
+  https://www.tensorflow.org/api_docs/python/tf/keras/applications/MobileNetV2
+
+- **NumPy Documentation (`numpy.where`)**  
+  https://numpy.org/devdocs/reference/generated/numpy.where.html
+
+- **Matplotlib Intro (W3Schools)**  
+  https://www.w3schools.com/python/matplotlib_intro.asp
 
 
 
