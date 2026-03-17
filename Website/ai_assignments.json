@@ -1,0 +1,313 @@
+{
+  "_meta": {
+    "created_at": "2026-02-27T05:59:50",
+    "seed": 42,
+    "n_requested": 60,
+    "n_written": 60,
+    "source_dir": "./data/G-emojis",
+    "website_folder": "website_emojis7"
+  },
+  "assignments": {
+    "emoji_000.png": {
+      "ai_cluster": 33,
+      "original_file": "1f93c.png",
+      "ai_cluster_subset": 33
+    },
+    "emoji_001.png": {
+      "ai_cluster": 18,
+      "original_file": "1f9d1-1f3ff-200d-1f9b0.png",
+      "ai_cluster_subset": 18
+    },
+    "emoji_002.png": {
+      "ai_cluster": 35,
+      "original_file": "1f469-1f3fc-200d-2764-fe0f-200d-1f469-1f3fc.png",
+      "ai_cluster_subset": 35
+    },
+    "emoji_003.png": {
+      "ai_cluster": 24,
+      "original_file": "2622-fe0f.png",
+      "ai_cluster_subset": 24
+    },
+    "emoji_004.png": {
+      "ai_cluster": 45,
+      "original_file": "1f9d6-1f3fd-200d-2642-fe0f.png",
+      "ai_cluster_subset": 45
+    },
+    "emoji_005.png": {
+      "ai_cluster": 18,
+      "original_file": "1f9d3-1f3fd.png",
+      "ai_cluster_subset": 18
+    },
+    "emoji_006.png": {
+      "ai_cluster": 33,
+      "original_file": "1f9cd-1f3fc-200d-2642-fe0f.png",
+      "ai_cluster_subset": 33
+    },
+    "emoji_007.png": {
+      "ai_cluster": 24,
+      "original_file": "1f62c.png",
+      "ai_cluster_subset": 24
+    },
+    "emoji_008.png": {
+      "ai_cluster": 42,
+      "original_file": "1f468-1f3fe-200d-1f3ed.png",
+      "ai_cluster_subset": 42
+    },
+    "emoji_009.png": {
+      "ai_cluster": 45,
+      "original_file": "1f470-1f3ff.png",
+      "ai_cluster_subset": 45
+    },
+    "emoji_010.png": {
+      "ai_cluster": 9,
+      "original_file": "1f9d1-1f3fb-200d-1f9bc-200d-27a1-fe0f.png",
+      "ai_cluster_subset": 9
+    },
+    "emoji_011.png": {
+      "ai_cluster": 37,
+      "original_file": "1f561.png",
+      "ai_cluster_subset": 37
+    },
+    "emoji_012.png": {
+      "ai_cluster": 10,
+      "original_file": "2709-fe0f.png",
+      "ai_cluster_subset": 10
+    },
+    "emoji_013.png": {
+      "ai_cluster": 10,
+      "original_file": "27bf.png",
+      "ai_cluster_subset": 10
+    },
+    "emoji_014.png": {
+      "ai_cluster": 0,
+      "original_file": "1f6d6.png",
+      "ai_cluster_subset": 0
+    },
+    "emoji_015.png": {
+      "ai_cluster": 32,
+      "original_file": "1f9d8-1f3fc-200d-2640-fe0f.png",
+      "ai_cluster_subset": 32
+    },
+    "emoji_016.png": {
+      "ai_cluster": 17,
+      "original_file": "1f486-200d-2642-fe0f.png",
+      "ai_cluster_subset": 17
+    },
+    "emoji_017.png": {
+      "ai_cluster": 4,
+      "original_file": "1f44d-1f3ff.png",
+      "ai_cluster_subset": 4
+    },
+    "emoji_018.png": {
+      "ai_cluster": 24,
+      "original_file": "1f636.png",
+      "ai_cluster_subset": 24
+    },
+    "emoji_019.png": {
+      "ai_cluster": 4,
+      "original_file": "1f91f-1f3fc.png",
+      "ai_cluster_subset": 4
+    },
+    "emoji_020.png": {
+      "ai_cluster": 8,
+      "original_file": "1f6b4-1f3fb-200d-2640-fe0f.png",
+      "ai_cluster_subset": 8
+    },
+    "emoji_021.png": {
+      "ai_cluster": 26,
+      "original_file": "1f6b6-1f3fc-200d-2640-fe0f-200d-27a1-fe0f.png",
+      "ai_cluster_subset": 26
+    },
+    "emoji_022.png": {
+      "ai_cluster": 38,
+      "original_file": "1f338.png",
+      "ai_cluster_subset": 38
+    },
+    "emoji_023.png": {
+      "ai_cluster": 10,
+      "original_file": "2795.png",
+      "ai_cluster_subset": 10
+    },
+    "emoji_024.png": {
+      "ai_cluster": 46,
+      "original_file": "1f936-1f3fb.png",
+      "ai_cluster_subset": 46
+    },
+    "emoji_025.png": {
+      "ai_cluster": 38,
+      "original_file": "1faa9.png",
+      "ai_cluster_subset": 38
+    },
+    "emoji_026.png": {
+      "ai_cluster": 32,
+      "original_file": "1f9dc-1f3fc.png",
+      "ai_cluster_subset": 32
+    },
+    "emoji_027.png": {
+      "ai_cluster": 13,
+      "original_file": "1f3ac.png",
+      "ai_cluster_subset": 13
+    },
+    "emoji_028.png": {
+      "ai_cluster": 3,
+      "original_file": "1f934-1f3ff.png",
+      "ai_cluster_subset": 3
+    },
+    "emoji_029.png": {
+      "ai_cluster": 47,
+      "original_file": "1f94c.png",
+      "ai_cluster_subset": 47
+    },
+    "emoji_030.png": {
+      "ai_cluster": 29,
+      "original_file": "1f487-1f3ff-200d-2642-fe0f.png",
+      "ai_cluster_subset": 29
+    },
+    "emoji_031.png": {
+      "ai_cluster": 14,
+      "original_file": "1f1fa-1f1ff.png",
+      "ai_cluster_subset": 14
+    },
+    "emoji_032.png": {
+      "ai_cluster": 42,
+      "original_file": "1f468-200d-2708-fe0f.png",
+      "ai_cluster_subset": 42
+    },
+    "emoji_033.png": {
+      "ai_cluster": 14,
+      "original_file": "1f1e8-1f1f1.png",
+      "ai_cluster_subset": 14
+    },
+    "emoji_034.png": {
+      "ai_cluster": 18,
+      "original_file": "1f474-1f3fd.png",
+      "ai_cluster_subset": 18
+    },
+    "emoji_035.png": {
+      "ai_cluster": 22,
+      "original_file": "1f49b.png",
+      "ai_cluster_subset": 22
+    },
+    "emoji_036.png": {
+      "ai_cluster": 13,
+      "original_file": "1f9ce-200d-2642-fe0f-200d-27a1-fe0f.png",
+      "ai_cluster_subset": 13
+    },
+    "emoji_037.png": {
+      "ai_cluster": 47,
+      "original_file": "1f94f.png",
+      "ai_cluster_subset": 47
+    },
+    "emoji_038.png": {
+      "ai_cluster": 33,
+      "original_file": "1f3cb-1f3fc-200d-2640-fe0f.png",
+      "ai_cluster_subset": 33
+    },
+    "emoji_039.png": {
+      "ai_cluster": 12,
+      "original_file": "1f469-200d-2764-200d-1f48b-200d-1f468.png",
+      "ai_cluster_subset": 12
+    },
+    "emoji_040.png": {
+      "ai_cluster": 38,
+      "original_file": "1f94a.png",
+      "ai_cluster_subset": 38
+    },
+    "emoji_041.png": {
+      "ai_cluster": 3,
+      "original_file": "1f46e-1f3fb-200d-2642-fe0f.png",
+      "ai_cluster_subset": 3
+    },
+    "emoji_042.png": {
+      "ai_cluster": 40,
+      "original_file": "1f5e3-fe0f.png",
+      "ai_cluster_subset": 40
+    },
+    "emoji_043.png": {
+      "ai_cluster": 40,
+      "original_file": "2614.png",
+      "ai_cluster_subset": 40
+    },
+    "emoji_044.png": {
+      "ai_cluster": 22,
+      "original_file": "1f49a.png",
+      "ai_cluster_subset": 22
+    },
+    "emoji_045.png": {
+      "ai_cluster": 9,
+      "original_file": "1f469-1f3ff-200d-1f9bc.png",
+      "ai_cluster_subset": 9
+    },
+    "emoji_046.png": {
+      "ai_cluster": 33,
+      "original_file": "1f9cd-1f3fb.png",
+      "ai_cluster_subset": 33
+    },
+    "emoji_047.png": {
+      "ai_cluster": 47,
+      "original_file": "1f3a8.png",
+      "ai_cluster_subset": 47
+    },
+    "emoji_048.png": {
+      "ai_cluster": 40,
+      "original_file": "1f9de-200d-2642-fe0f.png",
+      "ai_cluster_subset": 40
+    },
+    "emoji_049.png": {
+      "ai_cluster": 10,
+      "original_file": "1f4c3.png",
+      "ai_cluster_subset": 10
+    },
+    "emoji_050.png": {
+      "ai_cluster": 2,
+      "original_file": "1f54e.png",
+      "ai_cluster_subset": 2
+    },
+    "emoji_051.png": {
+      "ai_cluster": 44,
+      "original_file": "270b.png",
+      "ai_cluster_subset": 44
+    },
+    "emoji_052.png": {
+      "ai_cluster": 15,
+      "original_file": "1f6c5.png",
+      "ai_cluster_subset": 15
+    },
+    "emoji_053.png": {
+      "ai_cluster": 15,
+      "original_file": "0030-fe0f-20e3.png",
+      "ai_cluster_subset": 15
+    },
+    "emoji_054.png": {
+      "ai_cluster": 13,
+      "original_file": "1f9ce-1f3fc.png",
+      "ai_cluster_subset": 13
+    },
+    "emoji_055.png": {
+      "ai_cluster": 2,
+      "original_file": "26a0-fe0f.png",
+      "ai_cluster_subset": 2
+    },
+    "emoji_056.png": {
+      "ai_cluster": 14,
+      "original_file": "1f1f0-1f1fc.png",
+      "ai_cluster_subset": 14
+    },
+    "emoji_057.png": {
+      "ai_cluster": 5,
+      "original_file": "1f46c.png",
+      "ai_cluster_subset": 5
+    },
+    "emoji_058.png": {
+      "ai_cluster": 34,
+      "original_file": "1f6c3.png",
+      "ai_cluster_subset": 34
+    },
+    "emoji_059.png": {
+      "ai_cluster": 42,
+      "original_file": "1f9d1-1f3ff-200d-2696-fe0f.png",
+      "ai_cluster_subset": 42
+    }
+  },
+  "missing_source_files": []
+}

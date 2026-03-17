@@ -1,0 +1,319 @@
+{
+  "timestamp": "2026-03-02T00:10:18.342Z",
+  "participant": "will",
+  "results": {
+    "emoji_005.png": {
+      "human_cluster": "cluster-1",
+      "ai_cluster": 18,
+      "original_file": "1f9d3-1f3fd.png"
+    },
+    "emoji_024.png": {
+      "human_cluster": "cluster-1",
+      "ai_cluster": 46,
+      "original_file": "1f936-1f3fb.png"
+    },
+    "emoji_034.png": {
+      "human_cluster": "cluster-1",
+      "ai_cluster": 18,
+      "original_file": "1f474-1f3fd.png"
+    },
+    "emoji_000.png": {
+      "human_cluster": "cluster-2",
+      "ai_cluster": 33,
+      "original_file": "1f93c.png"
+    },
+    "emoji_020.png": {
+      "human_cluster": "cluster-2",
+      "ai_cluster": 8,
+      "original_file": "1f6b4-1f3fb-200d-2640-fe0f.png"
+    },
+    "emoji_038.png": {
+      "human_cluster": "cluster-2",
+      "ai_cluster": 33,
+      "original_file": "1f3cb-1f3fc-200d-2640-fe0f.png"
+    },
+    "emoji_029.png": {
+      "human_cluster": "cluster-2",
+      "ai_cluster": 47,
+      "original_file": "1f94c.png"
+    },
+    "emoji_037.png": {
+      "human_cluster": "cluster-2",
+      "ai_cluster": 47,
+      "original_file": "1f94f.png"
+    },
+    "emoji_040.png": {
+      "human_cluster": "cluster-2",
+      "ai_cluster": 38,
+      "original_file": "1f94a.png"
+    },
+    "emoji_021.png": {
+      "human_cluster": "cluster-2",
+      "ai_cluster": 26,
+      "original_file": "1f6b6-1f3fc-200d-2640-fe0f-200d-27a1-fe0f.png"
+    },
+    "emoji_015.png": {
+      "human_cluster": "cluster-3",
+      "ai_cluster": 32,
+      "original_file": "1f9d8-1f3fc-200d-2640-fe0f.png"
+    },
+    "emoji_004.png": {
+      "human_cluster": "cluster-3",
+      "ai_cluster": 45,
+      "original_file": "1f9d6-1f3fd-200d-2642-fe0f.png"
+    },
+    "emoji_016.png": {
+      "human_cluster": "cluster-3",
+      "ai_cluster": 17,
+      "original_file": "1f486-200d-2642-fe0f.png"
+    },
+    "emoji_014.png": {
+      "human_cluster": "cluster-3",
+      "ai_cluster": 0,
+      "original_file": "1f6d6.png"
+    },
+    "emoji_036.png": {
+      "human_cluster": "cluster-3",
+      "ai_cluster": 13,
+      "original_file": "1f9ce-200d-2642-fe0f-200d-27a1-fe0f.png"
+    },
+    "emoji_054.png": {
+      "human_cluster": "cluster-3",
+      "ai_cluster": 13,
+      "original_file": "1f9ce-1f3fc.png"
+    },
+    "emoji_022.png": {
+      "human_cluster": "cluster-3",
+      "ai_cluster": 38,
+      "original_file": "1f338.png"
+    },
+    "emoji_043.png": {
+      "human_cluster": "cluster-3",
+      "ai_cluster": 40,
+      "original_file": "2614.png"
+    },
+    "emoji_044.png": {
+      "human_cluster": "cluster-3",
+      "ai_cluster": 22,
+      "original_file": "1f49a.png"
+    },
+    "emoji_048.png": {
+      "human_cluster": "cluster-3",
+      "ai_cluster": 40,
+      "original_file": "1f9de-200d-2642-fe0f.png"
+    },
+    "emoji_050.png": {
+      "human_cluster": "cluster-3",
+      "ai_cluster": 2,
+      "original_file": "1f54e.png"
+    },
+    "emoji_026.png": {
+      "human_cluster": "cluster-3",
+      "ai_cluster": 32,
+      "original_file": "1f9dc-1f3fc.png"
+    },
+    "emoji_031.png": {
+      "human_cluster": "cluster-4",
+      "ai_cluster": 14,
+      "original_file": "1f1fa-1f1ff.png"
+    },
+    "emoji_033.png": {
+      "human_cluster": "cluster-4",
+      "ai_cluster": 14,
+      "original_file": "1f1e8-1f1f1.png"
+    },
+    "emoji_056.png": {
+      "human_cluster": "cluster-4",
+      "ai_cluster": 14,
+      "original_file": "1f1f0-1f1fc.png"
+    },
+    "emoji_012.png": {
+      "human_cluster": "cluster-5",
+      "ai_cluster": 10,
+      "original_file": "2709-fe0f.png"
+    },
+    "emoji_013.png": {
+      "human_cluster": "cluster-5",
+      "ai_cluster": 10,
+      "original_file": "27bf.png"
+    },
+    "emoji_023.png": {
+      "human_cluster": "cluster-5",
+      "ai_cluster": 10,
+      "original_file": "2795.png"
+    },
+    "emoji_046.png": {
+      "human_cluster": "cluster-5",
+      "ai_cluster": 33,
+      "original_file": "1f9cd-1f3fb.png"
+    },
+    "emoji_011.png": {
+      "human_cluster": "cluster-5",
+      "ai_cluster": 37,
+      "original_file": "1f561.png"
+    },
+    "emoji_049.png": {
+      "human_cluster": "cluster-5",
+      "ai_cluster": 10,
+      "original_file": "1f4c3.png"
+    },
+    "emoji_025.png": {
+      "human_cluster": "cluster-5",
+      "ai_cluster": 38,
+      "original_file": "1faa9.png"
+    },
+    "emoji_003.png": {
+      "human_cluster": "cluster-6",
+      "ai_cluster": 24,
+      "original_file": "2622-fe0f.png"
+    },
+    "emoji_035.png": {
+      "human_cluster": "cluster-6",
+      "ai_cluster": 22,
+      "original_file": "1f49b.png"
+    },
+    "emoji_007.png": {
+      "human_cluster": "cluster-6",
+      "ai_cluster": 24,
+      "original_file": "1f62c.png"
+    },
+    "emoji_018.png": {
+      "human_cluster": "cluster-6",
+      "ai_cluster": 24,
+      "original_file": "1f636.png"
+    },
+    "emoji_001.png": {
+      "human_cluster": "cluster-6",
+      "ai_cluster": 18,
+      "original_file": "1f9d1-1f3ff-200d-1f9b0.png"
+    },
+    "emoji_055.png": {
+      "human_cluster": "cluster-6",
+      "ai_cluster": 2,
+      "original_file": "26a0-fe0f.png"
+    },
+    "emoji_019.png": {
+      "human_cluster": "cluster-7",
+      "ai_cluster": 4,
+      "original_file": "1f91f-1f3fc.png"
+    },
+    "emoji_017.png": {
+      "human_cluster": "cluster-7",
+      "ai_cluster": 4,
+      "original_file": "1f44d-1f3ff.png"
+    },
+    "emoji_051.png": {
+      "human_cluster": "cluster-7",
+      "ai_cluster": 44,
+      "original_file": "270b.png"
+    },
+    "emoji_039.png": {
+      "human_cluster": "cluster-8",
+      "ai_cluster": 12,
+      "original_file": "1f469-200d-2764-200d-1f48b-200d-1f468.png"
+    },
+    "emoji_057.png": {
+      "human_cluster": "cluster-8",
+      "ai_cluster": 5,
+      "original_file": "1f46c.png"
+    },
+    "emoji_002.png": {
+      "human_cluster": "cluster-8",
+      "ai_cluster": 35,
+      "original_file": "1f469-1f3fc-200d-2764-fe0f-200d-1f469-1f3fc.png"
+    },
+    "emoji_009.png": {
+      "human_cluster": "cluster-8",
+      "ai_cluster": 45,
+      "original_file": "1f470-1f3ff.png"
+    },
+    "emoji_008.png": {
+      "human_cluster": "cluster-9",
+      "ai_cluster": 42,
+      "original_file": "1f468-1f3fe-200d-1f3ed.png"
+    },
+    "emoji_032.png": {
+      "human_cluster": "cluster-9",
+      "ai_cluster": 42,
+      "original_file": "1f468-200d-2708-fe0f.png"
+    },
+    "emoji_041.png": {
+      "human_cluster": "cluster-9",
+      "ai_cluster": 3,
+      "original_file": "1f46e-1f3fb-200d-2642-fe0f.png"
+    },
+    "emoji_059.png": {
+      "human_cluster": "cluster-9",
+      "ai_cluster": 42,
+      "original_file": "1f9d1-1f3ff-200d-2696-fe0f.png"
+    },
+    "emoji_028.png": {
+      "human_cluster": "cluster-9",
+      "ai_cluster": 3,
+      "original_file": "1f934-1f3ff.png"
+    },
+    "emoji_058.png": {
+      "human_cluster": "cluster-9",
+      "ai_cluster": 34,
+      "original_file": "1f6c3.png"
+    },
+    "emoji_027.png": {
+      "human_cluster": "cluster-9",
+      "ai_cluster": 13,
+      "original_file": "1f3ac.png"
+    },
+    "emoji_030.png": {
+      "human_cluster": "cluster-9",
+      "ai_cluster": 29,
+      "original_file": "1f487-1f3ff-200d-2642-fe0f.png"
+    },
+    "emoji_047.png": {
+      "human_cluster": "cluster-9",
+      "ai_cluster": 47,
+      "original_file": "1f3a8.png"
+    },
+    "emoji_052.png": {
+      "human_cluster": "cluster-9",
+      "ai_cluster": 15,
+      "original_file": "1f6c5.png"
+    },
+    "emoji_045.png": {
+      "human_cluster": "cluster-10",
+      "ai_cluster": 9,
+      "original_file": "1f469-1f3ff-200d-1f9bc.png"
+    },
+    "emoji_010.png": {
+      "human_cluster": "cluster-10",
+      "ai_cluster": 9,
+      "original_file": "1f9d1-1f3fb-200d-1f9bc-200d-27a1-fe0f.png"
+    },
+    "emoji_053.png": {
+      "human_cluster": "cluster-11",
+      "ai_cluster": 15,
+      "original_file": "0030-fe0f-20e3.png"
+    },
+    "emoji_006.png": {
+      "human_cluster": "cluster-11",
+      "ai_cluster": 33,
+      "original_file": "1f9cd-1f3fc-200d-2642-fe0f.png"
+    },
+    "emoji_042.png": {
+      "human_cluster": "cluster-11",
+      "ai_cluster": 40,
+      "original_file": "1f5e3-fe0f.png"
+    }
+  },
+  "cluster_descriptions": {
+    "cluster-1": "old people",
+    "cluster-2": "activities",
+    "cluster-3": "zen",
+    "cluster-4": "flags",
+    "cluster-5": "monotone colors",
+    "cluster-6": "yellow/orange",
+    "cluster-7": "body parts",
+    "cluster-8": "love",
+    "cluster-9": "careers",
+    "cluster-10": "disabled veterans",
+    "cluster-11": "misc. / trash"
+  }
+}

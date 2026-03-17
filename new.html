@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<title>Emoji Card-Sorting Survey</title>
+	<style>
+		:root{font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;margin:0}
+		body{padding:20px;background:#f7f7fb;color:#111}
+		h1{font-size:20px;margin:0 0 10px}
+		p{margin:4px 0 14px;color:#444}
+		.cluster-desc{width:100%;box-sizing:border-box;margin-top:8px;padding:8px;border-radius:6px;border:1px solid #e6e8f2;min-height:40px;max-height:88px;font-size:13px;resize:vertical;overflow:auto;background:#fff}
+		.cluster-title{outline:none;font-weight:700}
+		.board{display:flex;gap:16px;align-items:flex-start}
+		.pile, .category{background:#fff;border:1px solid #e0e4ee;border-radius:10px;padding:12px;width:220px;min-height:160px;box-shadow:0 2px 6px rgba(20,30,60,0.04)}
+		.pile{flex-shrink:0}
+		.columns{display:flex;flex-direction:column;gap:8px}
+		.card{font-size:28px;padding:10px;border-radius:8px;background:linear-gradient(180deg,#fff,#fbfdff);border:1px solid #eef2ff;display:inline-flex;align-items:center;justify-content:center;margin:6px;cursor:grab;user-select:none}
+		.card[draggable="true"]{touch-action:none}
+		.cards{display:flex;flex-wrap:wrap}
+		.category-header{font-weight:600;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
+		.drop-target{min-height:60px;padding:6px;border-radius:8px;transition:background .15s,border-color .15s}
+		.drop-target.dragover{background:#eef6ff;border-color:#9ec5ff}
+		.controls{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}
+		button{background:#2563eb;color:#fff;border:0;padding:8px 12px;border-radius:8px;cursor:pointer}
+		button.ghost{background:#fff;color:#111;border:1px solid #d6d9ef}
+		small.note{display:block;margin-top:8px;color:#666}
+		.export-area{margin-top:12px;white-space:pre-wrap;background:#fff;padding:10px;border-radius:8px;border:1px solid #e8e8ef;max-height:220px;overflow:auto}
+		@media (max-width:880px){.board{flex-direction:column}.pile,.category{width:100%}}
+	</style>
+</head>
+<body>
+	<h1>Emoji Card-Sorting Survey</h1>
+	<p>Drag the emoji cards into the category columns that best fit. Describe your cluster and your reasoning if you can — add a short description under each cluster. You can make as many clusters as you see fit. When you're done, click "Export results" to download participant answers.</p>
+
+	<div class="board">
+		<div class="pile">
+			<div class="category-header"><span>Emoji cards</span><small class="note">Drag or tap to move</small></div>
+			<div id="pile" class="cards drop-target"></div>
+			<div class="controls">
+				<button id="reset">Reset</button>
+				<button id="shuffle" class="ghost">Shuffle</button>
+			</div>
+		</div>
+
+		<div class="columns" style="flex:1;">
+			<div id="clusters-wrap" style="display:flex;gap:12px;flex-wrap:wrap"></div>
+			<div class="controls" style="margin-top:12px">
+				<button id="export">Export results (PDF)</button>
+				<button id="download-csv" class="ghost">Download CSV</button>
+				<button id="add-cluster" class="ghost">Add cluster</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="output" class="export-area" hidden></div>
+
+	<script>
+		// emoji set - replace/add as needed
+		// If you want to use image files from a local folder, set EMOJI_IMAGES to an array of paths
+		// Example (relative to this HTML file when served):
+		// const EMOJI_IMAGES = ['emoji-clustering-project/website-emojis/lightbulb.png', 'emoji-clustering-project/website-emojis/rocket.png'];
+		// Or absolute file URLs: 'file:///Users/you/Desktop/emoji-clustering-project/website-emojis/lightbulb.png'
+		const EMOJI_IMAGES = [];
+		const EMOJIS = ["😀","😐","😞","🎉","🔥","💡","💤","😱","😍","🤔","👍","👎","🌟","🪄","📦","⚠️","🧠","🍰","🚀","🧩"];
+		// Auto-build image list from predictable filenames in website_emojis/
+		// Assumption: files are named emoji_000.png ... emoji_059.png (60 files).
+		// If your folder has a different count, change `total` below.
+		(function buildFromPattern(){
+			if(EMOJI_IMAGES.length) return;
+			const total = 60; // change if you have more/fewer files
+			for(let i=0;i<total;i++){
+				const name = 'website_emojis/emoji_' + String(i).padStart(3,'0') + '.png';
+				EMOJI_IMAGES.push(name);
+			}
+		})();
+
+		const pile = document.getElementById('pile');
+		const clustersWrap = document.getElementById('clusters-wrap');
+		// dynamic clusters: array of {id, title, el}
+		const clusters = [];
+		const output = document.getElementById('output');
+
+		// create card element
+		function makeCard(id, label, type){
+			const d = document.createElement('div');
+			d.className = 'card';
+			d.draggable = true;
+			d.dataset.id = id;
+			if(type === 'img'){
+				const img = document.createElement('img');
+				img.src = label;
+				img.alt = label.split('/').pop() || 'img';
+				img.style.maxWidth = '56px';
+				img.style.maxHeight = '56px';
+				img.style.display = 'block';
+				img.style.margin = '6px';
+				d.appendChild(img);
+			}else{
+				d.textContent = label;
+			}
+
+			// drag events
+			d.addEventListener('dragstart', e=>{
+				e.dataTransfer.setData('text/plain', id);
+				// small visual hint
+				requestAnimationFrame(()=>d.style.opacity = '0.4');
+			});
+			d.addEventListener('dragend', e=>{
+				d.style.opacity = '';
+			});
+
+			// tap-to-select fallback
+			d.addEventListener('click', e=>{
+				// toggle selected
+				const selected = document.querySelector('.card.selected');
+				if(selected && selected !== d) selected.classList.remove('selected');
+				d.classList.toggle('selected');
+			});
+			return d;
+		}
+
+			function populatePile(){
+				pile.innerHTML = '';
+				if(EMOJI_IMAGES && EMOJI_IMAGES.length){
+					EMOJI_IMAGES.forEach((src,i)=> pile.appendChild(makeCard('e'+i, src, 'img')));
+				}else{
+					EMOJIS.forEach((em, i)=>pile.appendChild(makeCard('e'+i, em, 'emoji')));
+				}
+			}
+
+			// create a cluster column
+			function createCluster(title){
+				const id = 'cluster-' + (clusters.length + 1);
+				const wrap = document.createElement('div');
+				wrap.className = 'category';
+				const header = document.createElement('div');
+				header.className = 'category-header';
+				const span = document.createElement('span');
+				span.textContent = title;
+				span.contentEditable = true;
+				span.className = 'cluster-title';
+				span.setAttribute('aria-label','Cluster title (editable)');
+				header.appendChild(span);
+				const drop = document.createElement('div');
+				drop.className = 'drop-target';
+				drop.id = id;
+				// description textarea
+				const desc = document.createElement('textarea');
+				desc.className = 'cluster-desc';
+				desc.placeholder = 'Describe this cluster and your reasoning (optional)';
+				wrap.appendChild(header);
+				wrap.appendChild(drop);
+				wrap.appendChild(desc);
+				clustersWrap.appendChild(wrap);
+				makeDroppable(drop);
+				clusters.push({id, title, el: drop, titleEl: span, descEl: desc});
+				return drop;
+			}
+
+		// drop target wiring
+		function makeDroppable(el){
+			el.addEventListener('dragover', e=>{ e.preventDefault(); el.classList.add('dragover'); });
+			el.addEventListener('dragleave', e=>{ el.classList.remove('dragover'); });
+			el.addEventListener('drop', e=>{
+				e.preventDefault();
+				el.classList.remove('dragover');
+				const id = e.dataTransfer.getData('text/plain');
+				const card = document.querySelector(`.card[data-id="${id}"]`);
+				if(card) el.appendChild(card);
+			});
+
+			// click-to-move: when a card is selected and user taps a category
+			el.addEventListener('click', e=>{
+				const selected = document.querySelector('.card.selected');
+				if(!selected) return;
+				el.appendChild(selected);
+				selected.classList.remove('selected');
+			});
+		}
+
+		// result export
+		function collectResults(){
+			const res = {};
+			res.timestamp = new Date().toISOString();
+					res.categories = {};
+					// pile items are "uncategorized"
+					res.categories.uncategorized = Array.from(pile.children).map(c=>c.dataset.id);
+							// dynamic clusters (include title and description)
+							clusters.forEach(cl=>{
+								res.categories[cl.id] = Array.from(cl.el.children).map(c=>c.dataset.id);
+								res[cl.id] = { title: (cl.titleEl && cl.titleEl.textContent) || cl.title, description: (cl.descEl && cl.descEl.value) || '' };
+							});
+			// map ids to emoji or image
+			res.map = {};
+			if(EMOJI_IMAGES && EMOJI_IMAGES.length){
+				EMOJI_IMAGES.forEach((src,i)=>res.map['e'+i]=src);
+			}else{
+				EMOJIS.forEach((em,i)=>res.map['e'+i]=em);
+			}
+			return res;
+		}
+
+		function showJSON(obj){
+			output.hidden = false;
+			output.textContent = JSON.stringify(obj, null, 2);
+		}
+
+			function buildPrintableHTML(res){
+				const title = 'Card-sorting results';
+				const style = `<style>body{font-family:system-ui,Arial;padding:20px;color:#111}h1{font-size:18px}table{border-collapse:collapse;width:100%;margin-bottom:16px}th,td{border:1px solid #ddd;padding:6px;text-align:left}th{background:#f4f6fb}</style>`;
+				let body = `<h1>${title}</h1><p><strong>Timestamp:</strong> ${res.timestamp}</p>`;
+				// uncategorized
+				body += `<h2>Uncategorized</h2>`;
+				body += `<table><tr><th>Position</th><th>id</th><th>emoji</th></tr>`;
+						(res.categories.uncategorized||[]).forEach((id,i)=>{
+							const m = res.map[id] || '';
+							body += `<tr><td>${i+1}</td><td>${id}</td><td>${isImagePath(m)?`<img src="${escapeHtml(m)}" style="max-height:40px">` : escapeHtml(m)}</td></tr>`;
+						});
+				body += `</table>`;
+						// clusters
+						for(const key of Object.keys(res.categories)){
+							if(key === 'uncategorized') continue;
+							const items = res.categories[key];
+							const meta = res[key] || {};
+							body += `<h2>${escapeHtml(meta.title || key)}</h2>`;
+							if(meta.description) body += `<p><em>${escapeHtml(meta.description)}</em></p>`;
+							body += `<table><tr><th>Position</th><th>id</th><th>emoji</th></tr>`;
+									(items||[]).forEach((id,i)=>{
+										const m = res.map[id] || '';
+										body += `<tr><td>${i+1}</td><td>${id}</td><td>${isImagePath(m)?`<img src="${escapeHtml(m)}" style="max-height:40px">` : escapeHtml(m)}</td></tr>`;
+									});
+							body += `</table>`;
+						}
+				return `<!doctype html><html><head><meta charset="utf-8"><title>${escapeHtml(title)}</title>${style}</head><body>${body}</body></html>`;
+			}
+
+			function isImagePath(s){
+				if(!s || typeof s !== 'string') return false;
+				const lower = s.toLowerCase();
+				return lower.match(/\.(png|jpe?g|gif|svg|webp)(\?.*)?$/) || s.indexOf('/') !== -1 || lower.startsWith('blob:') || lower.startsWith('data:');
+			}
+
+
+
+			function escapeHtml(s){
+				return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+			}
+
+		// CSV helpers
+		function resultsToCSV(obj){
+			// rows: id,emoji,category,position
+			const rows = [["id","emoji","category","position","cluster_title","cluster_description"]];
+					const addRows = (category, container)=>{
+						Array.from(container.children).forEach((c,i)=>{
+							rows.push([c.dataset.id, obj.map[c.dataset.id]||'', category, String(i+1)]);
+						});
+					};
+					addRows('uncategorized', pile);
+					clusters.forEach(cl=> addRows(cl.id, cl.el));
+			return rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join("\\n");
+		}
+
+		// download helper
+		function downloadText(filename, text){
+			const a = document.createElement('a');
+			const blob = new Blob([text], {type:'text/plain'});
+			a.href = URL.createObjectURL(blob);
+			a.download = filename;
+			document.body.appendChild(a);
+			a.click();
+			a.remove();
+			setTimeout(()=>URL.revokeObjectURL(a.href), 5000);
+		}
+
+		// shuffle
+		function shufflePile(){
+			for(let i = pile.children.length; i >= 0; i--){
+				pile.appendChild(pile.children[Math.random() * i | 0]);
+			}
+		}
+
+	// wire everything: populate from the pattern-generated list and initialize UI
+	populatePile();
+	makeDroppable(pile);
+	// create initial 3 clusters
+	createCluster('Cluster 1');
+	createCluster('Cluster 2');
+	createCluster('Cluster 3');
+
+			document.getElementById('export').addEventListener('click', ()=>{
+				const res = collectResults();
+				// create printable HTML
+				const html = buildPrintableHTML(res);
+				const w = window.open('', '_blank');
+				if(!w){
+					alert('Popup blocked — please allow popups or use the CSV download.');
+					return;
+				}
+				w.document.open();
+				w.document.write(html);
+				w.document.close();
+				// give the new window a moment to render, then call print
+				setTimeout(()=>w.print(), 300);
+			});
+
+		document.getElementById('download-csv').addEventListener('click', ()=>{
+			const obj = collectResults();
+			const csv = resultsToCSV(obj);
+			downloadText('card-sorting-result.csv', csv);
+		});
+
+			document.getElementById('add-cluster').addEventListener('click', ()=>{
+				const i = clusters.length + 1;
+				createCluster('Cluster ' + i);
+			});
+
+		document.getElementById('reset').addEventListener('click', ()=>{
+			// move all cards back to pile
+			const cards = document.querySelectorAll('.card');
+			cards.forEach(c=>pile.appendChild(c));
+			populatePile(); // restore original order
+			output.hidden = true;
+		});
+
+		document.getElementById('shuffle').addEventListener('click', ()=>{
+			shufflePile();
+		});
+
+		// small accessibility: allow keyboard moving with Enter on card -> pick, Enter on target -> drop
+		document.addEventListener('keydown', e=>{
+			if(e.key === 'Escape'){
+				const selected = document.querySelector('.card.selected');
+				if(selected) selected.classList.remove('selected');
+			}
+		});
+	</script>
+</body>
+</html>

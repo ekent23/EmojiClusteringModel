@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Emoji Card-Sorting Survey</title>
+
+
+<style>
+:root{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;margin:0}
+body{padding:20px;background:#f7f7fb;color:#111}
+h1{font-size:20px;margin:0 0 10px}
+.board{display:flex;gap:16px;align-items:flex-start}
+.pile,.category{background:#fff;border:1px solid #e0e4ee;border-radius:10px;padding:12px;width:220px;min-height:160px}
+.cards{display:flex;flex-wrap:wrap}
+.card{padding:6px;border-radius:8px;background:#fff;border:1px solid #eef2ff;margin:6px;cursor:grab}
+.card img{max-width:56px;max-height:56px}
+.drop-target{min-height:60px;padding:6px;border-radius:8px}
+.drop-target.dragover{background:#eef6ff}
+.controls{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+/* layout cards in cluster boxes only: columns with up to 3 rows, then create a new column */
+.category .drop-target{
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(3, 80px);
+  grid-auto-columns: 80px;
+  gap:6px;
+  align-content: start;
+}
+/* cards inside cluster drop-target should size to the grid cell */
+/* cluster drop area: flow by rows so items wrap into rows and the box grows vertically
+   This keeps every emoji visible inside the cluster box instead of overflowing */
+.category .drop-target{
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-columns: repeat(auto-fill, 56px);
+  grid-auto-rows: auto;
+  gap:8px;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+}
+
+/* cards inside cluster drop-target should fill the grid cell and not overlap */
+.category .drop-target .card{
+  margin:0 !important;
+  padding:4px;
+  width:56px;
+  height:56px;
+  box-sizing:border-box;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.category .drop-target .card img{
+  max-width:100%;
+  max-height:100%;
+  display:block;
+  object-fit:contain;
+}
+.instructions{margin:8px 0 16px;color:#333}
+.category textarea{width:100%;min-height:56px;border-radius:8px;border:1px solid #e6e9f2;padding:10px;box-sizing:border-box;font-family:monospace;resize:vertical}
+</style>
+</head>
+
+<body>
+
+<h1>Emoji Card-Sorting Survey</h1>
+
+<p class="instructions">Drag the emoji cards into the category columns that best fit. Describe your cluster and your reasoning (optional) using the box under each cluster. You can make as many clusters as you like. When you're done, click "Download Results (JSON)" to save your answers.</p>
+
+<div class="board">
+  <div class="pile">
+    <strong>Emoji Cards</strong>
+    <div id="pile" class="cards drop-target"></div>
+    <div class="controls">
+      <button id="reset">Reset</button>
+      <button id="shuffle" class="ghost">Shuffle</button>
+    </div>
+  </div>
+
+  <div>
+    <div id="clusters-wrap" style="display:flex;gap:12px;flex-wrap:wrap"></div>
+
+    <div class="controls">
+      <label>
+        <strong>Name:</strong>
+        <input id="participant" placeholder="Enter your name">
+      </label>
+
+      <button id="export">Download Results (JSON)</button>
+      <button id="download-csv" class="ghost">Download CSV</button>
+      <button id="add-cluster" class="ghost">Add cluster</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const EMOJI_IMAGES = [];
+let AI_ASSIGNMENTS = {};
+
+const pile = document.getElementById('pile');
+const clustersWrap = document.getElementById('clusters-wrap');
+const clusters = [];
+let clusterCounter = 0;
+
+/* ===============================
+   LOAD FROM ai_assignments.json
+================================= */
+async function buildFromAssignments(){
+  if(EMOJI_IMAGES.length) return;
+
+  const res = await fetch('./ai_assignments.json');
+  const data = await res.json();
+
+  AI_ASSIGNMENTS = data.assignments || data;
+  const files = Object.keys(AI_ASSIGNMENTS).sort();
+
+  files.forEach(f=>{
+    EMOJI_IMAGES.push('website_emojis7/' + f);
+  });
+}
+
+/* ===============================
+   CREATE CARDS
+================================= */
+function makeCard(id, src){
+  const d = document.createElement('div');
+  d.className = 'card';
+  d.draggable = true;
+  d.dataset.id = id;
+
+  const img = document.createElement('img');
+  img.src = src;
+  d.appendChild(img);
+
+  d.addEventListener('dragstart', e=>{
+    e.dataTransfer.setData('text/plain', id);
+  });
+
+  return d;
+}
+
+function populatePile(){
+  pile.innerHTML = '';
+  EMOJI_IMAGES.forEach((src,i)=>{
+    pile.appendChild(makeCard('e'+i, src));
+  });
+  // allow the pile to accept dropped cards (so users can drag emojis back)
+  makeDroppable(pile);
+}
+
+/* ===============================
+   CLUSTERS
+================================= */
+function createCluster(title){
+  clusterCounter++;
+  const id = 'cluster-' + clusterCounter;
+
+  const wrap = document.createElement('div');
+  wrap.className = 'category';
+  // header area (title + optional delete button)
+  const headerWrap = document.createElement('div');
+  headerWrap.style.display = 'flex';
+  headerWrap.style.justifyContent = 'space-between';
+  headerWrap.style.alignItems = 'center';
+
+  const header = document.createElement('div');
+  header.textContent = title;
+  header.style.fontWeight = "bold";
+
+  const drop = document.createElement('div');
+  drop.className = 'drop-target';
+
+  makeDroppable(drop);
+
+  // If this is a cluster created after the initial three, add a per-cluster delete button
+  if(clusterCounter > 3){
+    const del = document.createElement('button');
+    del.className = 'ghost';
+    del.textContent = 'Delete';
+    del.addEventListener('click', ()=>{
+      // move any cards back to the pile
+      while(drop.firstChild){
+        pile.appendChild(drop.firstChild);
+      }
+
+      // remove the cluster from DOM
+      if(wrap.parentElement) wrap.parentElement.removeChild(wrap);
+      // remove from clusters array
+      const idx = clusters.findIndex(c=>c.id === id);
+      if(idx !== -1) clusters.splice(idx,1);
+    });
+
+    headerWrap.appendChild(header);
+    headerWrap.appendChild(del);
+    wrap.appendChild(headerWrap);
+  } else {
+    wrap.appendChild(header);
+  }
+
+  wrap.appendChild(drop);
+  clustersWrap.appendChild(wrap);
+
+  // add a description textarea under the drop area
+  const desc = document.createElement('textarea');
+  desc.placeholder = 'Describe this cluster and your reasoning (optional)';
+  wrap.appendChild(desc);
+
+  clusters.push({id, el: drop, desc});
+}
+
+function makeDroppable(el){
+  el.addEventListener('dragover', e=>{
+    e.preventDefault();
+    el.classList.add('dragover');
+  });
+
+  el.addEventListener('dragleave', ()=>{
+    el.classList.remove('dragover');
+  });
+
+  el.addEventListener('drop', e=>{
+    e.preventDefault();
+    el.classList.remove('dragover');
+    const id = e.dataTransfer.getData('text/plain');
+    const card = document.querySelector(`.card[data-id="${id}"]`);
+    if(card) el.appendChild(card);
+  });
+}
+
+/* ===============================
+   COLLECT RESULTS
+================================= */
+function collectResults(){
+  const participant = document.getElementById('participant')?.value?.trim() || "anonymous";
+
+  const result = {};
+  result.timestamp = new Date().toISOString();
+  result.participant = participant;
+  result.results = {};
+
+  const idToFilename = {};
+  EMOJI_IMAGES.forEach((src,i)=>{
+    idToFilename['e'+i] = src.split('/').pop();
+  });
+
+  clusters.forEach(cl=>{
+    Array.from(cl.el.children).forEach(card=>{
+      const fname = idToFilename[card.dataset.id];
+      result.results[fname] = {
+        human_cluster: cl.id,
+        ai_cluster: AI_ASSIGNMENTS[fname]?.ai_cluster ?? null,
+        original_file: AI_ASSIGNMENTS[fname]?.original_file ?? null
+      };
+    });
+  });
+
+  // also include cluster descriptions in the result
+  result.cluster_descriptions = {};
+  clusters.forEach(cl=>{
+    result.cluster_descriptions[cl.id] = cl.desc?.value?.trim() || '';
+  });
+
+  return result;
+}
+
+/* ===============================
+   DOWNLOAD HELPERS
+================================= */
+function downloadText(filename, text){
+  const blob = new Blob([text], {type:'text/plain'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}
+
+/* ===============================
+   BUTTONS
+================================= */
+document.getElementById('export').addEventListener('click', ()=>{
+  const data = collectResults();
+  const safeName = data.participant.replace(/[^a-z0-9_-]/gi,"_");
+  const ts = new Date().toISOString().replace(/[:.]/g,"-");
+  downloadText(`card-sorting-${safeName}-${ts}.json`, JSON.stringify(data,null,2));
+});
+
+document.getElementById('download-csv').addEventListener('click', ()=>{
+  const data = collectResults();
+  let rows = [["filename","human_cluster","ai_cluster"]];
+  Object.entries(data.results).forEach(([k,v])=>{
+    rows.push([k,v.human_cluster,v.ai_cluster]);
+  });
+  const csv = rows.map(r=>r.join(',')).join("\n");
+  downloadText('card-sorting-result.csv', csv);
+});
+
+document.getElementById('add-cluster').addEventListener('click', ()=>{
+  createCluster('Cluster ' + (clusters.length+1));
+});
+
+document.getElementById('reset').addEventListener('click', ()=>{
+  clustersWrap.innerHTML = '';
+  clusters.length = 0;
+  clusterCounter = 0;
+
+  buildFromAssignments().then(()=>{
+    populatePile();
+    createCluster('Cluster 1');
+    createCluster('Cluster 2');
+    createCluster('Cluster 3');
+  });
+});
+
+document.getElementById('shuffle').addEventListener('click', ()=>{
+  for(let i = pile.children.length; i >= 0; i--){
+    pile.appendChild(pile.children[Math.random() * i | 0]);
+  }
+});
+
+/* ===============================
+   INIT
+================================= */
+buildFromAssignments().then(()=>{
+  populatePile();
+  createCluster('Cluster 1');
+  createCluster('Cluster 2');
+  createCluster('Cluster 3');
+});
+</script>
+
+</body>
+</html>
