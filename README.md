@@ -1,53 +1,56 @@
-
-
-
 # EmojiClusteringModel
 
-An unsupervised machine learning project that clusters emoji images using CNN-based feature extraction and K-Means clustering.
+An unsupervised machine learning project that compares vision-based and text-based AI clustering of emojis against human perceptual groupings.
 
 ## 🎯 Project Overview
 
-This project uses a pre-trained MobileNetV2 convolutional neural network to extract visual features from 3,793 emoji images. It then applies K-Means clustering to group visually similar emojis together, making it easier to explore patterns in emoji usage and design.
+This project investigates whether AI clusters emojis the way humans do. Using 3,793 Apple emojis, two unsupervised clustering models were compared — one vision-based and one text-based — against human card-sort data collected through a custom web interface. Results were evaluated using pairwise F1 scores.
+
+This research was completed as part of the NASA Delaware Space Grant Consortium internship at Delaware State University under the mentorship of Dr. Kong.
 
 ## 📦 Dataset
 
-The emoji images used in this project were sourced from the open-source
-[emoji-data repository](https://github.com/iamcal/emoji-data) by iamcal.
+The emoji images used in this project were sourced from the open-source [emoji-data repository](https://github.com/iamcal/emoji-data) by iamcal.
 
-Specifically, the **Apple-style emoji images** located in the
-`img-apple-64` folder were used. The dataset consists of **3,793 PNG emoji images**,
-each resized to 64×64 pixels.
+Specifically, the **Apple-style emoji images** located in the `img-apple-64` folder were used. The dataset consists of **3,793 PNG emoji images**, each resized to 64×64 pixels.
 
-All images are used for **educational and research purposes** in accordance
-with the repository’s license.
-
+All images are used for **educational and research purposes** in accordance with the repository's license.
 
 ## 🛠️ Technologies Used
 
 - **Python 3.11**
-- **TensorFlow 2.15.0** – For CNN feature extraction (MobileNetV2)
-- **scikit-learn** – For K-Means clustering
+- **TensorFlow / Keras** – For CNN feature extraction (EfficientNetB3)
+- **SentenceTransformers (all-MiniLM-L6-v2)** – For semantic text embedding
+- **scikit-learn** – For K-Means clustering and Silhouette Method
 - **NumPy** – For numerical operations
 - **Matplotlib** – For visualization
 - **Pillow (PIL)** – For image processing
 
-
 ## 📊 Methodology
 
-1. **Data Collection**: 3,793 Apple-style emoji images (PNG format) sourced from the
-   `img-apple-64` folder of the open-source emoji-data repository
-2. **Feature Extraction**: Each emoji is converted into a 1,280-dimensional feature vector using the pre-trained MobileNetV2 CNN (without the classifier feature).
-3. **Clustering**: The K-Means algorithm is applied to group emojis based on visual similarity. The project uses 50 clusters by default, but this can be adjusted.
-4. **Visualization**: Random emojis from each cluster are displayed in a grid, and the final figure is saved as results.png.
+1. **Vision Extraction**: EfficientNetB3 converts each emoji image into a 1,536-dimensional feature vector capturing visual characteristics like color, shape, and texture.
+2. **Text Extraction**: SentenceTransformer (all-MiniLM-L6-v2) converts each emoji's name into a 384-dimensional semantic vector, where similar meanings are close together in vector space.
+3. **Clustering**: K-Means clustering is applied to both feature sets. The Silhouette Method was used to find the optimal number of clusters — 48 for vision, 43 for text.
+4. **Human Baseline**: A custom web interface presented 60 random emojis to participants for manual grouping (card-sort study).
+5. **Evaluation**: Pairwise F1 scores measure agreement between each AI model's groupings and the human groupings.
 
-## Example Output
+## 📈 Results
 
+| Model | Average F1 Score |
+|---|---|
+| Vision (EfficientNetB3) | 0.275 |
+| Text (SentenceTransformer) | 0.416 |
+| **Improvement** | **+51%** |
 
-![alt text](https://github.com/ekent23/EmojiClusteringModel/edit/main/results.png)results.png "Results")
+The text-based model significantly outperformed the vision model, indicating that humans categorize emojis based on semantic meaning rather than visual appearance.
 
+## 👤 Author
 
-## 👤 Author 
+**Ebonee Kent**  
+Junior, Information Technology — Delaware State University  
+NASA Delaware Space Grant Consortium Research Intern
 
-Ebonee Kent
+## 🙏 Acknowledgements
 
+This research was supported by the Delaware Space Grant College and Fellowship Program (NASA Grant 80NSSC20M0045). Thanks to Delaware State University for computational resources and to all card-sort study participants.
 
